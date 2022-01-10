@@ -1,0 +1,7 @@
+app/JSONAppTest.class
+json/JsonObjectAddFindProjectionTest.class
+json/JsonObjectToJsonTest.class
+json/JsonNullTest.class
+domain/BasicStudentTest.class
+json/JsonBooleanTest.class
+domain/StudentTest.class

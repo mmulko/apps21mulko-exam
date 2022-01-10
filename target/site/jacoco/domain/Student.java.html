@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Student.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JsonConvertor</a> &gt; <a href="index.source.html" class="el_package">domain</a> &gt; <span class="el_source">Student.java</span></div><h1>Student.java</h1><pre class="source lang-java linenums">package domain;
+
+import json.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * Created by Andrii_Rodionov on 1/3/2017.
+ */
+public class Student extends BasicStudent {
+    protected String name;
+    protected String surname;
+    protected Integer year;
+<span class="fc" id="L16">    protected List&lt;Tuple&lt;String, Integer&gt;&gt; exams = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L18">    public Student(String name, String surname, Integer year, Tuple&lt;String, Integer&gt;... exams) {</span>
+<span class="fc" id="L19">        this.name = name;</span>
+<span class="fc" id="L20">        this.surname = surname;</span>
+<span class="fc" id="L21">        this.year = year;</span>
+<span class="fc" id="L22">        this.exams.addAll(Arrays.asList(exams));</span>
+<span class="fc" id="L23">    }</span>
+
+    @Override
+    public JsonObject toJsonObject() {
+<span class="fc" id="L27">        List&lt;JsonObject&gt; examsList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L28">        JsonPair jName = new JsonPair(&quot;name&quot;, new JsonString(name));</span>
+<span class="fc" id="L29">        JsonPair jSurname = new JsonPair(&quot;surname&quot;, new JsonString(surname));</span>
+<span class="fc" id="L30">        JsonPair jYear = new JsonPair(&quot;year&quot;, new JsonNumber(year));</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        for (Tuple&lt;String, Integer&gt; exam : exams) {</span>
+<span class="fc" id="L32">            JsonPair examName = new JsonPair(&quot;course&quot;, new JsonString(exam.key));</span>
+<span class="fc" id="L33">            JsonPair examMark = new JsonPair(&quot;mark&quot;, new JsonNumber(exam.value));</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">            JsonPair examStatus = new JsonPair(&quot;passed&quot;, new JsonBoolean(exam.value &gt; 2));</span>
+<span class="fc" id="L35">            JsonObject jsonExam = new JsonObject(examName, examMark, examStatus);</span>
+<span class="fc" id="L36">            examsList.add(jsonExam);</span>
+<span class="fc" id="L37">        }</span>
+<span class="fc" id="L38">        Json jsonExams = new JsonArray(examsList.toArray(new JsonObject[0]));</span>
+<span class="fc" id="L39">        JsonPair jExam = new JsonPair(&quot;exams&quot;, jsonExams);</span>
+<span class="fc" id="L40">        return new JsonObject(jName, jSurname, jYear, jExam);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
