@@ -1,15 +1,19 @@
 package domain;
 
-import json.*;
+import json.Jsonable;
+import json.JsonObject;
+import json.JsonPair;
+import json.JsonNumber;
+import json.JsonString;
 
 /**
  * Created by Andrii_Rodionov on 1/5/2017.
  */
 public class BasicStudent implements Jsonable {
 
-    protected String name;
-    protected String surname;
-    protected Integer year;
+    private String name;
+    private String surname;
+    private Integer year;
 
     public BasicStudent() {
     }

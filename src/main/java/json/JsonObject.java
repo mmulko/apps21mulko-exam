@@ -1,6 +1,11 @@
 package json;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * Created by Andrii_Rodionov on 1/3/2017.
@@ -22,11 +27,15 @@ public class JsonObject extends Json {
             for (JsonPair jsonPair : jsonPairsList) {
                 if (!checkKeys.contains(jsonPair.key+":")) {
                     checkKeys.add(jsonPair.key+":");
-                    finalString.append(jsonPair.key).append(": ").append(jsonPair.value.toJson()).append(", ");
+                    finalString.append(jsonPair.key).append(": ").
+                            append(jsonPair.value.toJson()).append(", ");
                 } else {
-                    int intIndex = finalString.indexOf(jsonPair.key + ":") + 5;
+                    final int INDEXES_TO_GOAL = 5;
+                    int intIndex = finalString.indexOf(jsonPair.key + ":")
+                            + INDEXES_TO_GOAL;
                     StringBuilder buf = new StringBuilder(finalString);
-                    buf.replace(intIndex, intIndex+2, jsonPair.value.toJson());
+                    buf.replace(intIndex, intIndex+2,
+                            jsonPair.value.toJson());
                     finalString = new StringBuilder(buf);
                 }
             }
@@ -69,7 +78,8 @@ public class JsonObject extends Json {
         return jsonProjection;
     }
 
-    // There was no template, even no test for contains, but it is stated in task, thus here you are
+    // There was no template, even no test for contains,
+    // but it is stated in task, thus here you are
     public boolean contains(String name) {
         for (JsonPair jsonPair : jsonPairsList) {
             if (Objects.equals(jsonPair.key, name)) {
